@@ -1,3 +1,5 @@
+import com.android.build.gradle.internal.cxx.configure.gradleLocalProperties
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
@@ -18,6 +20,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        val tmdbApiKey: String = gradleLocalProperties(rootDir).getProperty("tmdbApiKey")
+        buildConfigField("String", "TMDB_API_KEY", tmdbApiKey)
     }
 
     buildTypes {
@@ -38,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
